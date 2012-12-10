@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Magento Responsive Image // Mri</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="screen.css" media="screen" />
+<script type="text/javascript" src="prototype.js"></script>
+<script type="text/javascript" src="scriptaculous/effects.js"></script>
+<script type="text/javascript" src="mri.js"></script>
+
+<style type="text/css">
+	*{ margin:0; padding:0; border:0; }
+	body { padding: 40px; }
+	h1 { max-width: 500px; margin-bottom: 50px; }
+	code { display: block; margin-bottom: 30px; }
+	ul { margin-left: 15px; }
+	img.mri { width: auto; }
+</style>
+
+</head>
+<body>
+<h1>Magento responsive images (mri) functionality proposal</h1>
+
+<noscript><img src="mri/medium.png" alt="Magento Responsive Image"></noscript>
+<img class="mri" src="mri/loader.gif" 
+	data-src-x1="mri/small.png"
+	data-src-x2="mri/medium.png"
+	data-src-x3="mri/large.png" 
+	alt="Magento Responsive Image">
+
+<br />
+<br />
+<p>Do resize :]</p>
+<br />
+<code>
+&lt;noscript&gt;&lt;img src=&quot;img/example-medium.jpg&quot; alt=&quot;Magento responsive image&quot;&gt;&lt;/noscript&gt;<br/>&lt;img class=&quot;mri&quot; src=&quot;img/grey.gif&quot; <br/>	&nbsp;&nbsp;data-src-x1=&quot;img/example-small.jpg&quot;<br/>	&nbsp;&nbsp;data-src-x2=&quot;img/example-medium.jpg&quot;<br/>	&nbsp;&nbsp;data-src-x3=&quot;img/example-large.jpg&quot; <br/>	&nbsp;&nbsp;alt=&quot;Magento responsive image&quot;&gt;
+<br /><br />
+&lt;script&gt;<br />
+&nbsp;new Inchoo.Mri($$('img.mri'), {<br />
+&nbsp;&nbsp;'x1':	'(max-width: 532px)',<br />
+&nbsp;&nbsp;'x2':	'(min-width: 532px) and (max-width: 800px)',<br />
+&nbsp;&nbsp;'x3':	'(min-width: 800px)'<br />
+&nbsp;}, {noMatch: 'x2'});<br />
+&lt;/script&gt;
+</code>
+
+<p>
+Notes:
+	<ul>
+		<li>always loads one default image on browsers that don't support media queries !!</li>
+		<li>lazy loading will get us speed</li>
+		<li>image gets "mri-loading" class while loading</li>
+	</ul>
+</p>
+
+<script type="text/javascript">
+document.observe("dom:loaded", function() {
+	new Inchoo.Mri($$('img.mri'), {
+		'x1':	'(max-width: 532px)',
+		'x2':	'(min-width: 532px) and (max-width: 800px)',
+		'x3':	'(min-width: 800px)'
+	}, {noMatch: 'x3', onResize: true});
+});
+</script>
+</body>
+</html>
